@@ -1,0 +1,49 @@
+#线程池配置
+executor:
+  crawler:
+    core_pool_size: 4
+    keep_alive_seconds: 5
+    queue_capacity: 600
+#kafka配置
+kafka:
+  consumer:
+    servers: 127.0.0.1:9092
+    group_id: crawler
+    session_timeout: 60000
+    max_poll_records: 20000
+    offset_reset: earliest
+    concurrency: 1
+    crawler_topic: crawler-topic
+  producer:
+    servers: 127.0.0.1:9092
+    retries: 3
+    batch_size: 16384
+    linger: 1
+    buffer_memory: 33554432
+server:
+  port: 8080
+  session-timeout: 30
+  servlet:
+    context-path: crawler
+  tomcat:
+    max-threads: 50
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/crawler?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    initialSize: 1
+    minIdle: 1
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
